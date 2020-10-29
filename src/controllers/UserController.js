@@ -11,7 +11,7 @@ module.exports = {
         const token = req.headers['x-access-token'];
         const value = ValidateToken(token, KeySecret).message;
         if (value === 'error') {
-            return res.status(400).json({ message: 'error', res: 'Failed to authenticate' })
+            return res.status(200).json({ message: 'error', res: 'Failed to authenticate' })
         }
         const users = await knex('users').select('users.id', 'users.name', 'users.email').orderBy('id', 'desc');
         return res.status(200).json(users);
@@ -32,24 +32,24 @@ module.exports = {
         const token = req.headers['x-access-token'];
         const { email, password, name } = req.body;
         if (!email) {
-            return res.status(400).json({ message: 'error', res: 'Missing the email' })
+            return res.status(200).json({ message: 'error', res: 'Missing the email' })
         }
         if (!token) {
-            return res.status(400).json({ message: 'error', res: 'Missing the token' })
+            return res.status(200).json({ message: 'error', res: 'Missing the token' })
         }
         if (!password) {
-            return res.status(400).json({ message: 'error', res: 'Missing the password' })
+            return res.status(200).json({ message: 'error', res: 'Missing the password' })
         }
         if (!name) {
-            return res.status(400).json({ message: 'error', res: 'Missing the name' })
+            return res.status(200).json({ message: 'error', res: 'Missing the name' })
         }
         const value = ValidateToken(token, KeySecret).message;
         if (value === 'error') {
-            return res.status(400).json({ message: 'error', res: 'Failed to authenticate' })
+            return res.status(200).json({ message: 'error', res: 'Failed to authenticate' })
         }
         const existeUser = await knex('users').where('email', email).select('*');
         if (existeUser.length !== 0) {
-            return res.status(400).json({ message: 'error', res: 'Existing User' })
+            return res.status(200).json({ message: 'error', res: 'Existing User' })
         }
         const salt = bcrypt.genSaltSync(10);
         const hash = bcrypt.hashSync(password, salt);
@@ -61,27 +61,29 @@ module.exports = {
         }]).then(() => {
             return res.status(200).json({ message: 'success', res: '' })
         }).catch((err) => {
-            return res.status(400).json({ message: 'error', res: 'Failed to create user', err: err })
+            return res.status(200).json({ message: 'error', res: 'Failed to create user', err: err })
         })
     },
     async login(req, res) {
         const { email, password } = req.body;
         if (!email) {
-            return res.status(400).json({ message: 'error', res: 'Missing the email' })
+            return res.status(200).json({ message: 'error', res: 'Missing the email' })
         }
         if (!password) {
-            return res.status(400).json({ message: 'error', res: 'Missing the password' })
+            return res.status(200).json({ message: 'error', res: 'Missing the password' })
         }
         const userCheck = await knex('users').where('email', email).select('*');
-
+        if(userCheck.length == 0){
+            return res.status(200).json({ message: 'error', res: 'User does not exist' })
+        }
         const valuePass = userCheck[0].password;
         const valueCheckPass = bcrypt.compareSync(password, valuePass);
         if (!valueCheckPass) {
-            return res.status(400).json({ message: 'error', res: 'Incorrect password' })
+            return res.status(200).json({ message: 'error', res: 'Incorrect password' })
         }
         const value = CreateToken(email, KeySecret, 0);
         if (value.message == 'error') {
-            return res.status(400).json({ message: 'error', res: 'Failed to create token' })
+            return res.status(200).json({ message: 'error', res: 'Failed to create token' })
         }
 
         return res.status(200).json({ message: 'success', token: value.token, expire: value.expire })
