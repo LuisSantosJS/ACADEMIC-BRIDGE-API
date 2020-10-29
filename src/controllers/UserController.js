@@ -73,7 +73,7 @@ module.exports = {
             return res.status(200).json({ message: 'error', res: 'Missing the password' })
         }
         const userCheck = await knex('users').where('email', email).select('*');
-        if(userCheck.length == 0){
+        if (userCheck.length == 0) {
             return res.status(200).json({ message: 'error', res: 'User does not exist' })
         }
         const valuePass = userCheck[0].password;
@@ -86,7 +86,11 @@ module.exports = {
             return res.status(200).json({ message: 'error', res: 'Failed to create token' })
         }
 
-        return res.status(200).json({ message: 'success', token: value.token, expire: value.expire })
+        return res.status(200).json({
+            message: 'success', token: value.token, expire: value.expire, data: {
+                name: userCheck[0].name, email: userCheck[0].email
+            }
+        })
     }
 }
 
