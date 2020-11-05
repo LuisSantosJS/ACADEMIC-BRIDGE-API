@@ -20,7 +20,7 @@ module.exports = {
             secure: false,
             auth: {
               user: 'luis@roxytech.com.br',
-              pass: '45R6XfZx29!'
+              pass: ''
             }
         });
         const options = {
