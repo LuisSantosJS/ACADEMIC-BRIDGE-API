@@ -3,7 +3,7 @@ const express = require('express');
 const EmailController = require('./controllers/Emailcontroller');
 const UserController = require('./controllers/UserController');
 const LeadsController = require('./controllers/LeadsController');
-
+const OptionsSelectController = require('./controllers/OptionsSelectController');
 const routes = express.Router();
 
 
@@ -19,5 +19,11 @@ routes.post('/send/email', EmailController.emailSend);
 routes.get('/leads/index', LeadsController.index);
 routes.post('/leads/create', LeadsController.create);
 routes.post('/leads/delete', LeadsController.delete);
+
+
+routes.get('/options/group', OptionsSelectController.indexGroup)
+routes.get('/options/source', OptionsSelectController.indexSource)
+
+
 
 module.exports = routes;
