@@ -17,7 +17,7 @@ exports.up = async (knex) => {
         table.string('city', 255).notNullable();
         table.string('birthday', 255).notNullable();
         table.string('campaign', 255).notNullable();
-        table.string('record', 255).notNullable();
+        table.string('salesman', 255).notNullable();
     });
 }
 

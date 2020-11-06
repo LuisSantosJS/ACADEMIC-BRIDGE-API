@@ -32,7 +32,7 @@ module.exports = {
             state,
             city,
             birthday,
-            record,
+            salesman
         } = req.body;
         const valueExist = await knex('leads').where('email', String(email).toLowerCase()).select('*');
         if (valueExist.length !== 0) {
@@ -54,7 +54,7 @@ module.exports = {
             state,
             city,
             birthday,
-            record,
+            salesman,
         }).then(() => {
             return res.json({ message: 'success' })
         }).catch(err => {

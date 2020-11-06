@@ -17,7 +17,7 @@ function CreateLeads(form) {
         state,
         city,
         birthday,
-        record,
+        salesman
     } = form;
     if (!email) {
         return { message: 'error', res: 'Missing the email' }
@@ -64,8 +64,8 @@ function CreateLeads(form) {
     if (!birthday) {
         return { message: 'error', res: 'Missing the birthday' }
     }
-    if (!record) {
-        return { message: 'error', res: 'Missing the record' }
+    if (!salesman) {
+        return { message: 'error', res: 'Missing the salesman' }
     }
     return { message: 'success', res: '' }
 }
