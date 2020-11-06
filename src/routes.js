@@ -17,6 +17,7 @@ routes.get('/', (req, res) => res.send('VAZA'));
 
 routes.post('/send/email', EmailController.emailSend);
 routes.get('/leads/index', LeadsController.index);
+routes.get('/leads/search', LeadsController.indexSearch);
 routes.post('/leads/create', LeadsController.create);
 routes.post('/leads/delete', LeadsController.delete);
 

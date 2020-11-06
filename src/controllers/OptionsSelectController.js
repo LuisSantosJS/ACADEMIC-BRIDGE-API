@@ -18,12 +18,14 @@ module.exports = {
 
         }
     },
-    async indexSource(req,res){
+    async indexSource(req, res) {
         const token = req.headers['x-access-token'];
         const value = ValidateToken(token, KeySecret).message;
         if (value === 'error') {
             return res.status(200).json({ message: 'error', res: 'Failed to authenticate' })
         }
+
+        
         try {
             const result = await knex('selectOptionSource').select('*');
             return res.json({ message: 'success', data: result })

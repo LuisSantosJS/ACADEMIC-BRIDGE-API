@@ -117,5 +117,59 @@ module.exports = {
         }).catch(err => {
             return res.json({ message: 'error', res: 'Error deleting Lead', data: err })
         })
+    },
+    async indexSearch(req, res) {
+        const token = req.headers['x-access-token'];
+        const value = ValidateToken(token, KeySecret).message;
+        if (value === 'error') {
+            return res.status(200).json({ message: 'error', res: 'Failed to authenticate' })
+        }
+        const { page, order, limit, search } = req.query;
+        if (!page) {
+            return res.json({ message: 'error', res: 'Missing page (query)' })
+        }
+        if (!search) {
+            return res.json({ message: 'error', res: 'Missing page (query)' })
+        }
+        if (!order) {
+            return res.json({ message: 'error', res: 'Missing order (query)' })
+        }
+        if (!limit) {
+            return res.json({ message: 'error', res: 'Missing limit (query)' })
+        }
+        if ((order !== 'desc') && (order !== 'asc')) {
+            return res.json({ message: 'error', res: 'Invalid OrderBy' })
+        }
+        try {
+            const result = await
+                knex('leads')
+                    .where("email", 'like', `%${search}%`)
+                    .orWhere("name", 'like', `%${search}%`)
+                    .orWhere("cellPhone", 'like', `%${search}%`)
+                    .orWhere("responsible", 'like', `%${search}%`)
+                    .orWhere("relationship", 'like', `%${search}%`)
+                    .orWhere("observation", 'like', `%${search}%`)
+                    .orWhere("genre", 'like', `%${search}%`)
+                    .orWhere("status", 'like', `%${search}%`)
+                    .orWhere("group", 'like', `%${search}%`)
+                    .orWhere("source", 'like', `%${search}%`)
+                    .orWhere("country", 'like', `%${search}%`)
+                    .orWhere("state", 'like', `%${search}%`)
+                    .orWhere("city", 'like', `%${search}%`)
+                    .orWhere("birthday", 'like', `%${search}%`)
+                    .orWhere("campaign", 'like', `%${search}%`)
+                    .orWhere("salesman", 'like', `%${search}%`)
+                    .orWhere("category", 'like', `%${search}%`)
+                    .limit(Number(limit))
+                    .offset((Number(page) - 1) * Number(limit))
+                    .orderBy('id', String(order))
+                    .select('*');
+            return res.json({ message: 'success', res: result })
+
+        } catch (error) {
+            console.log(error)
+            return res.json({ message: 'error', res: '' })
+        }
+
     }
 }
