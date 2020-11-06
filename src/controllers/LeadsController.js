@@ -20,9 +20,9 @@ module.exports = {
             email,
             name,
             cellPhone,
-            whatsapp,
-            facebook,
-            reference,
+            campaign,
+            responsible,
+            relationship,
             observation,
             genre,
             status,
@@ -32,7 +32,6 @@ module.exports = {
             state,
             city,
             birthday,
-            travelForecast,
             record,
         } = req.body;
         const valueExist = await knex('leads').where('email', String(email).toLowerCase()).select('*');
@@ -43,9 +42,9 @@ module.exports = {
             email,
             name,
             cellPhone,
-            whatsapp,
-            facebook,
-            reference,
+            campaign,
+            responsible,
+            relationship,
             observation,
             genre,
             status,
@@ -55,7 +54,6 @@ module.exports = {
             state,
             city,
             birthday,
-            travelForecast,
             record,
         }).then(() => {
             return res.json({ message: 'success' })

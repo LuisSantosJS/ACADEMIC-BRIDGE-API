@@ -5,9 +5,9 @@ function CreateLeads(form) {
         email,
         name,
         cellPhone,
-        whatsapp,
-        facebook,
-        reference,
+        campaign,
+        responsible,
+        relationship,
         observation,
         genre,
         status,
@@ -17,7 +17,6 @@ function CreateLeads(form) {
         state,
         city,
         birthday,
-        travelForecast,
         record,
     } = form;
     if (!email) {
@@ -29,14 +28,14 @@ function CreateLeads(form) {
     if (!cellPhone) {
         return { message: 'error', res: 'Missing the cellPhone' }
     }
-    if (!whatsapp) {
-        return { message: 'error', res: 'Missing the whatsapp' }
+    if (!relationship) {
+        return { message: 'error', res: 'Missing the relationship' }
     }
-    if (!facebook) {
-        return { message: 'error', res: 'Missing the facebook' }
+    if (!campaign) {
+        return { message: 'error', res: 'Missing the campaign' }
     }
-    if (!reference) {
-        return { message: 'error', res: 'Missing the reference' }
+    if (!responsible) {
+        return { message: 'error', res: 'Missing the responsible' }
     }
     if (!observation) {
         return { message: 'error', res: 'Missing the observation' }
@@ -64,9 +63,6 @@ function CreateLeads(form) {
     }
     if (!birthday) {
         return { message: 'error', res: 'Missing the birthday' }
-    }
-    if (!travelForecast) {
-        return { message: 'error', res: 'Missing the travelForecast' }
     }
     if (!record) {
         return { message: 'error', res: 'Missing the record' }
