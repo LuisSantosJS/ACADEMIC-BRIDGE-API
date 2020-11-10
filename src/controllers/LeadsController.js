@@ -90,6 +90,7 @@ module.exports = {
         if ((order !== 'desc') && (order !== 'asc')) {
             return res.json({ message: 'error', res: 'Invalid OrderBy' })
         }
+        const countRows = await knex('leads').count('id', { as: 'rows' });
         try {
             const result = await
                 knex('leads')
@@ -98,7 +99,7 @@ module.exports = {
                     .orderBy('id', String(order))
                     .select('*');
 
-            return res.json({ message: 'success', res: result })
+            return res.json({ message: 'success', res: result, rows: countRows[0].rows })
         } catch (error) {
             return res.json({ message: 'error', res: error })
         }
