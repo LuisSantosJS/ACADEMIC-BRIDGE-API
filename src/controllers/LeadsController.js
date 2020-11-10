@@ -18,22 +18,25 @@ module.exports = {
         }
         const {
             email,
-            name,
+            firstName,
+            lastName,
             cellPhone,
-            campaign,
-            responsible,
+            whatsapp,
+            notes,
+            region,
+            salesMan,
+            generateBy,
             relationship,
-            observation,
             genre,
             status,
             group,
             source,
             country,
-            state,
             city,
             birthday,
-            salesman,
-            category
+            campaign,
+            category,
+            travelForecast
         } = req.body;
         const valueExist = await knex('leads').where('email', String(email).toLowerCase()).select('*');
         if (valueExist.length !== 0) {
@@ -41,24 +44,27 @@ module.exports = {
         }
         knex('leads').insert({
             email,
-            name,
+            firstName,
+            lastName,
             cellPhone,
-            campaign,
-            responsible,
+            whatsapp,
+            notes,
+            region,
+            salesMan,
+            generateBy,
             relationship,
-            observation,
             genre,
             status,
             group,
             source,
             country,
-            state,
             city,
             birthday,
-            salesman,
-            category
+            campaign,
+            category,
+            travelForecast
         }).then(() => {
-            return res.json({ message: 'success' })
+            return res.json({ message: 'success', res: 'Lead registered with successo' })
         }).catch(err => {
             console.log(err)
             return res.json({ message: 'error', res: err })

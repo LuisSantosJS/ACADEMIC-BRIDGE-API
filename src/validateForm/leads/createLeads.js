@@ -3,28 +3,40 @@
 function CreateLeads(form) {
     const {
         email,
-        name,
+        firstName,
+        lastName,
         cellPhone,
-        campaign,
-        responsible,
+        whatsapp,
+        notes,
+        region,
+        salesMan,
+        generateBy,
         relationship,
-        observation,
         genre,
         status,
         group,
         source,
         country,
-        state,
         city,
         birthday,
-        salesman,
-        category
+        campaign,
+        category,
+        travelForecast
     } = form;
     if (!email) {
         return { message: 'error', res: 'Missing the email' }
     }
-    if (!name) {
-        return { message: 'error', res: 'Missing the name' }
+    if (!firstName) {
+        return { message: 'error', res: 'Missing the firstName' }
+    }
+    if (!lastName) {
+        return { message: 'error', res: 'Missing the lastName' }
+    }
+    if (!whatsapp) {
+        return { message: 'error', res: 'Missing the whatsapp' }
+    }
+    if (!region) {
+        return { message: 'error', res: 'Missing the region' }
     }
     if (!cellPhone) {
         return { message: 'error', res: 'Missing the cellPhone' }
@@ -35,11 +47,11 @@ function CreateLeads(form) {
     if (!campaign) {
         return { message: 'error', res: 'Missing the campaign' }
     }
-    if (!responsible) {
-        return { message: 'error', res: 'Missing the responsible' }
+    if (!travelForecast) {
+        return { message: 'error', res: 'Missing the travelForecast' }
     }
-    if (!observation) {
-        return { message: 'error', res: 'Missing the observation' }
+    if (!notes) {
+        return { message: 'error', res: 'Missing the notes' }
     }
     if (!genre) {
         return { message: 'error', res: 'Missing the genre' }
@@ -56,8 +68,8 @@ function CreateLeads(form) {
     if (!country) {
         return { message: 'error', res: 'Missing the country' }
     }
-    if (!state) {
-        return { message: 'error', res: 'Missing the state' }
+    if (!generateBy) {
+        return { message: 'error', res: 'Missing the generateBy' }
     }
     if (!city) {
         return { message: 'error', res: 'Missing the city' }
@@ -65,8 +77,8 @@ function CreateLeads(form) {
     if (!birthday) {
         return { message: 'error', res: 'Missing the birthday' }
     }
-    if (!salesman) {
-        return { message: 'error', res: 'Missing the salesman' }
+    if (!salesMan) {
+        return { message: 'error', res: 'Missing the salesMan' }
     }
     if (!category) {
         return { message: 'error', res: 'Missing the category' }
