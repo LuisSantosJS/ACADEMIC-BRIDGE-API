@@ -175,7 +175,7 @@ module.exports = {
 
         } catch (error) {
             console.log(error)
-            return res.json({ message: 'error', res: '' })
+            return res.json({ message: 'error', res: error })
         }
 
     }
