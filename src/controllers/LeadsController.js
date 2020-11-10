@@ -2,6 +2,7 @@
 const knex = require('../database/connection');
 const ValidateToken = require('../jwt/validate');
 const CreateToken = require('../jwt/create');
+const UpdateLeads = require('../validateForm/leads/updateLeads')
 const CreateLeads = require('../validateForm/leads/createLeads');
 const KeySecret = 'secreto';
 // const KeySecretExpire = 'aqueletokenqueexpira'
@@ -69,6 +70,73 @@ module.exports = {
             console.log(err)
             return res.json({ message: 'error', res: err })
         })
+
+    },
+    async update(req,res){
+        const token = req.headers['x-access-token'];
+        const value = ValidateToken(token, KeySecret).message;
+        if (value === 'error') {
+            return res.status(200).json({ message: 'error', res: 'Failed to authenticate' })
+        }
+        const validationValue = UpdateLeads(req.body);
+        if (validationValue.message === 'error') {
+            return res.json(validationValue);
+        }
+        const {
+            id,
+            email,
+            firstName,
+            lastName,
+            cellPhone,
+            whatsapp,
+            notes,
+            region,
+            salesMan,
+            generateBy,
+            relationship,
+            genre,
+            status,
+            group,
+            source,
+            country,
+            city,
+            birthday,
+            campaign,
+            category,
+            travelForecast
+        } = req.body;
+        const valueExist = await knex('leads').where('email', String(email).toLowerCase()).select('*');
+        if (valueExist.length !== 0) {
+            return res.json({ message: 'error', res: 'Existing lead' })
+        }
+        knex('leads').where('id', id).update({
+            email,
+            firstName,
+            lastName,
+            cellPhone,
+            whatsapp,
+            notes,
+            region,
+            salesMan,
+            generateBy,
+            relationship,
+            genre,
+            status,
+            group,
+            source,
+            country,
+            city,
+            birthday,
+            campaign,
+            category,
+            travelForecast
+        }).then(() => {
+            return res.json({ message: 'success', res: 'Lead updated with successo' })
+        }).catch(err => {
+            console.log(err)
+            return res.json({ message: 'error', res: err })
+        })
+
 
     },
     async index(req, res) {

@@ -19,6 +19,7 @@ routes.post('/send/email', EmailController.emailSend);
 routes.get('/leads/index', LeadsController.index);
 routes.get('/leads/search', LeadsController.indexSearch);
 routes.post('/leads/create', LeadsController.create);
+routes.post('/leads/update', LeadsController.update);
 routes.post('/leads/delete', LeadsController.delete);
 
 
