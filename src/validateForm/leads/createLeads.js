@@ -62,9 +62,6 @@ function CreateLeads(form) {
     if (!group) {
         return { message: 'error', res: 'Missing the group' }
     }
-    if (!source) {
-        return { message: 'error', res: 'Missing the source' }
-    }
     if (!country) {
         return { message: 'error', res: 'Missing the country' }
     }
