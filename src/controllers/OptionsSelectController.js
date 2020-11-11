@@ -25,13 +25,14 @@ module.exports = {
             return res.status(200).json({ message: 'error', res: 'Failed to authenticate' })
         }
         const { name } = req.body;
+        if(!name){
+            return res.json({message:'error', res: 'Missing Name'})
+        }
         const valueExist = await knex('selectOptionsGroup').where('name', name).select('*');
         if (valueExist.length !== 0) {
             return res.json({ message: 'error', res: 'Group already created or existing' })
         }
-        if(!name){
-            return res.json({message:'error', res: 'Missing Name'})
-        }
+
         knex('selectOptionsGroup').insert({
             name: name
         }).then(() => {
