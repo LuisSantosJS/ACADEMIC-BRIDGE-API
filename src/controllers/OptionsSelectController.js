@@ -29,9 +29,12 @@ module.exports = {
         if (valueExist.length !== 0) {
             return res.json({ message: 'error', res: 'Group already created or existing' })
         }
-        knex('selectOptionsGroup').insert([{
+        if(!name){
+            return res.json({message:'error', res: 'Missing Name'})
+        }
+        knex('selectOptionsGroup').insert({
             name: name
-        }]).then(() => {
+        }).then(() => {
             return res.json({ message: 'success', res: 'Group created with succeso' })
         }).catch(err => {
             return res.json({ message: 'error', res: 'An error occurred while creating group', data: err })
