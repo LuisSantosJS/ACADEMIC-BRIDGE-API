@@ -30,6 +30,8 @@ routes.post('/options/group/delete', OptionsSelectController.deleteGroup)
 
 
 routes.get('/options/source', OptionsSelectController.indexSource)
+routes.post('/options/source/create', OptionsSelectController.createSource)
+routes.post('/options/source/delete', OptionsSelectController.deleteSource)
 
 
 
