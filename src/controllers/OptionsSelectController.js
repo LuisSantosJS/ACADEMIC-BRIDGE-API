@@ -37,6 +37,24 @@ module.exports = {
             return res.json({ message: 'error', res: 'An error occurred while creating group', data: err })
         })
     },
+    async deleteGroup(req, res) {
+        const token = req.headers['x-access-token'];
+        const value = ValidateToken(token, KeySecret).message;
+        if (value === 'error') {
+            return res.status(200).json({ message: 'error', res: 'Failed to authenticate' })
+        }
+        const { id } = req.body;
+        const valueExist = await knex('selectOptionsGroup').where('id', id).select('*');
+        if (valueExist.length === 0) {
+            return res.json({ message: 'error', res: 'Nonexistent group' })
+        }
+        knex('selectOptionsGroup').where('id', id).delete().then(() => {
+            return res.json({ message: 'success', res: 'Group successfully deleted' })
+        }).catch(err => {
+            return res.json({ message: 'error', res: err });
+        })
+
+    },
     async indexSource(req, res) {
         const token = req.headers['x-access-token'];
         const value = ValidateToken(token, KeySecret).message;

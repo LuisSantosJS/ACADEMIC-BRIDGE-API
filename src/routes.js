@@ -25,6 +25,7 @@ routes.post('/leads/delete', LeadsController.delete);
 
 routes.get('/options/group', OptionsSelectController.indexGroup)
 routes.post('/options/group/create', OptionsSelectController.createGroup)
+routes.post('/options/group/delete', OptionsSelectController.deleteGroup)
 
 
 
