@@ -28,12 +28,12 @@ module.exports = {
         if(!name){
             return res.json({message:'error', res: 'Missing Name'})
         }
-        const valueExist = await knex('selectOptionsGroup').where('name', name).select('*');
+        const valueExist = await knex('selectOptionGroup').where('name', name).select('*');
         if (valueExist.length !== 0) {
             return res.json({ message: 'error', res: 'Group already created or existing' })
         }
 
-        knex('selectOptionsGroup').insert({
+        knex('selectOptionGroup').insert({
             name: name
         }).then(() => {
             return res.json({ message: 'success', res: 'Group created with succeso' })
@@ -48,11 +48,11 @@ module.exports = {
             return res.status(200).json({ message: 'error', res: 'Failed to authenticate' })
         }
         const { id } = req.body;
-        const valueExist = await knex('selectOptionsGroup').where('id', id).select('*');
+        const valueExist = await knex('selectOptionGroup').where('id', id).select('*');
         if (valueExist.length === 0) {
             return res.json({ message: 'error', res: 'Nonexistent group' })
         }
-        knex('selectOptionsGroup').where('id', id).delete().then(() => {
+        knex('selectOptionGroup').where('id', id).delete().then(() => {
             return res.json({ message: 'success', res: 'Group successfully deleted' })
         }).catch(err => {
             return res.json({ message: 'error', res: err });
