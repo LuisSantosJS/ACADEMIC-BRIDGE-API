@@ -35,8 +35,8 @@ module.exports = {
 
         knex('selectOptionGroup').insert({
             name: name
-        }).then(() => {
-            return res.json({ message: 'success', res: 'Group created with succeso' })
+        }).then((ress) => {
+            return res.json({ message: 'success', res: 'Group created with succeso', data: ress[0] })
         }).catch(err => {
             return res.json({ message: 'error', res: 'An error occurred while creating group', data: err })
         })
