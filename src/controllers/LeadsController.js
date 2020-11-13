@@ -36,7 +36,7 @@ module.exports = {
             campaign,
             travelForecast
         } = req.body;
-        const valueExist = await knex('leads').where('email', String(email).toLowerCase()).orWhere('cellPhone', String(cellPhone)).select('*');
+        const valueExist = await knex('leads').where('email', String(email).toLowerCase()).select('*');
         if (valueExist.length !== 0) {
             return res.json({ message: 'error', res: 'Existing lead' })
         }
