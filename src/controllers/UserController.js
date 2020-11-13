@@ -30,7 +30,7 @@ module.exports = {
     // },
     async create(req, res) {
         const token = req.headers['x-access-token'];
-        const { email, password, name } = req.body;
+        const { email, password, name , profile, type} = req.body;
         if (!email) {
             return res.status(200).json({ message: 'error', res: 'Missing the email' })
         }
@@ -42,6 +42,12 @@ module.exports = {
         }
         if (!name) {
             return res.status(200).json({ message: 'error', res: 'Missing the name' })
+        }
+        if (!profile) {
+            return res.status(200).json({ message: 'error', res: 'Missing the profile' })
+        }
+        if (!type) {
+            return res.status(200).json({ message: 'error', res: 'Missing the type' })
         }
         const value = ValidateToken(token, KeySecret).message;
         if (value === 'error') {
@@ -57,7 +63,9 @@ module.exports = {
         knex('users').insert([{
             email,
             password: hash,
-            name
+            name,
+            type,
+            profile
         }]).then(() => {
             return res.status(200).json({ message: 'success', res: '' })
         }).catch((err) => {
