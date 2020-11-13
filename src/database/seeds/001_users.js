@@ -4,7 +4,8 @@ exports.seed = function (knex) {
         {
             email: "dasilvasantosluisfelipe@gmail.com",
             password: "$2a$08$otr68DjxydTQKIpbnduuz.V.9Afp/C2nB3VPHyenOtc/fIFLlO/Iy",
-            name:'Luis Santos'
+            name:'Luis Santos',
+            profile:'manager'
         }
     ])
 }

@@ -19,8 +19,7 @@ module.exports = {
         }
         const {
             email,
-            firstName,
-            lastName,
+            fullName,
             cellPhone,
             whatsapp,
             notes,
@@ -30,23 +29,20 @@ module.exports = {
             relationship,
             genre,
             status,
-            group,
             source,
             country,
             city,
             birthday,
             campaign,
-            category,
             travelForecast
         } = req.body;
-        const valueExist = await knex('leads').where('email', String(email).toLowerCase()).select('*');
+        const valueExist = await knex('leads').where('email', String(email).toLowerCase()).orWhere('cellPhone', String(cellPhone)).select('*');
         if (valueExist.length !== 0) {
             return res.json({ message: 'error', res: 'Existing lead' })
         }
         knex('leads').insert({
             email,
-            firstName,
-            lastName,
+            fullName,
             cellPhone,
             whatsapp,
             notes,
@@ -56,13 +52,11 @@ module.exports = {
             relationship,
             genre,
             status,
-            group,
             source,
             country,
             city,
             birthday,
             campaign,
-            category,
             travelForecast
         }).then(() => {
             return res.json({ message: 'success', res: 'Lead registered with successo' })
@@ -72,7 +66,7 @@ module.exports = {
         })
 
     },
-    async update(req,res){
+    async update(req, res) {
         const token = req.headers['x-access-token'];
         const value = ValidateToken(token, KeySecret).message;
         if (value === 'error') {
@@ -85,8 +79,7 @@ module.exports = {
         const {
             id,
             email,
-            firstName,
-            lastName,
+            fullName,
             cellPhone,
             whatsapp,
             notes,
@@ -96,13 +89,11 @@ module.exports = {
             relationship,
             genre,
             status,
-            group,
             source,
             country,
             city,
             birthday,
             campaign,
-            category,
             travelForecast
         } = req.body;
         const valueExist = await knex('leads').where('email', String(email).toLowerCase()).select('*');
@@ -111,8 +102,7 @@ module.exports = {
         }
         knex('leads').where('id', id).update({
             email,
-            firstName,
-            lastName,
+            fullName,
             cellPhone,
             whatsapp,
             notes,
@@ -122,13 +112,11 @@ module.exports = {
             relationship,
             genre,
             status,
-            group,
             source,
             country,
             city,
             birthday,
             campaign,
-            category,
             travelForecast
         }).then(() => {
             return res.json({ message: 'success', res: 'Lead updated with successo' })
@@ -219,15 +207,13 @@ module.exports = {
             const result = await
                 knex('leads')
                     .where("email", 'like', `%${search}%`)
-                    .orWhere("firstName", 'like', `%${search}%`)
-                    .orWhere("lastName", 'like', `%${search}%`)
+                    .orWhere("fullName", 'like', `%${search}%`)
                     .orWhere("cellPhone", 'like', `%${search}%`)
                     .orWhere("whatsapp", 'like', `%${search}%`)
                     .orWhere("relationship", 'like', `%${search}%`)
                     .orWhere("notes", 'like', `%${search}%`)
                     .orWhere("genre", 'like', `%${search}%`)
                     .orWhere("status", 'like', `%${search}%`)
-                    .orWhere("group", 'like', `%${search}%`)
                     .orWhere("source", 'like', `%${search}%`)
                     .orWhere("country", 'like', `%${search}%`)
                     .orWhere("region", 'like', `%${search}%`)
@@ -237,7 +223,6 @@ module.exports = {
                     .orWhere("salesMan", 'like', `%${search}%`)
                     .orWhere("travelForecast", 'like', `%${search}%`)
                     .orWhere("generateBy", 'like', `%${search}%`)
-                    .orWhere("category", 'like', `%${search}%`)
                     .limit(Number(limit))
                     .offset((Number(page) - 1) * Number(limit))
                     .orderBy('id', String(order))
