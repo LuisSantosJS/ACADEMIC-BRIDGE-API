@@ -121,7 +121,7 @@ module.exports = {
             const result = await
                 knex('selectOptionSource')
                     .where("name", 'like', `%${search}%`)
-                    .orWhere("code", 'like', `%${search}%`)
+                    .orWhere("id", 'like', `%${search}%`)
                     .limit(Number(limit))
                     .offset((Number(page) - 1) * Number(limit))
                     .orderBy('id', String(order))
