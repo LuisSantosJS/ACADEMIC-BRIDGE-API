@@ -2,7 +2,7 @@
 exports.seed = function (knex) {
     return knex('selectOptionSource').insert([
         {
-            name: 'AB Brazil'
+            name: 'AB Brazil',
         },
         {
             name: 'Curioso e o Mundo'

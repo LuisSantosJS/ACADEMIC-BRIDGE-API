@@ -3,7 +3,7 @@ const express = require('express');
 const EmailController = require('./controllers/Emailcontroller');
 const UserController = require('./controllers/UserController');
 const LeadsController = require('./controllers/LeadsController');
-const OptionsSelectController = require('./controllers/OptionsSelectController');
+const SourceController = require('./controllers/SourceController');
 const routes = express.Router();
 
 
@@ -23,15 +23,15 @@ routes.post('/leads/update', LeadsController.update);
 routes.post('/leads/delete', LeadsController.delete);
 
 
-routes.get('/options/group', OptionsSelectController.indexGroup)
-routes.post('/options/group/create', OptionsSelectController.createGroup)
-routes.post('/options/group/delete', OptionsSelectController.deleteGroup)
+// routes.get('/options/group', OptionsSelectController.indexGroup)
+// routes.post('/options/group/create', OptionsSelectController.createGroup)
+// routes.post('/options/group/delete', OptionsSelectController.deleteGroup)
 
 
 
-routes.get('/options/source', OptionsSelectController.indexSource)
-routes.post('/options/source/create', OptionsSelectController.createSource)
-routes.post('/options/source/delete', OptionsSelectController.deleteSource)
+routes.get('/options/source', SourceController.indexSource)
+routes.post('/options/source/create', SourceController.createSource)
+routes.post('/options/source/delete', SourceController.deleteSource)
 
 
 
