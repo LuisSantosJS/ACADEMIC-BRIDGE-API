@@ -63,9 +63,6 @@ module.exports = {
         if (!unity) {
             return res.status(200).json({ message: 'error', res: 'Missing the unity' })
         }
-        if (!company) {
-            return res.status(200).json({ message: 'error', res: 'Missing the company' })
-        }
         if (!access) {
             return res.status(200).json({ message: 'error', res: 'Missing the access' })
         }
@@ -85,7 +82,7 @@ module.exports = {
             password: hash,
             name,
             unity,
-            company,
+            company: 'Academic Bridge',
             access
         }]).then(() => {
             return res.status(200).json({ message: 'success', res: '' })

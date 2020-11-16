@@ -3,6 +3,19 @@ const knex = require('../database/connection');
 const ValidateToken = require('../jwt/validate');
 const KeySecret = 'secreto';
 module.exports = {
+    async indexAll(req, res) {
+        const token = req.headers['x-access-token'];
+        const value = ValidateToken(token, KeySecret).message;
+        if (value === 'error') {
+            return res.status(200).json({ message: 'error', res: 'Failed to authenticate' })
+        }
+        try {
+            const result = await knex('selectOptionSource').select('*');
+            res.json({ message: 'success', res: result })
+        } catch (error) {
+            res.json({ message: 'error', err: error })
+        }
+    },
     async indexSource(req, res) {
         const token = req.headers['x-access-token'];
         const value = ValidateToken(token, KeySecret).message;
@@ -24,10 +37,10 @@ module.exports = {
         }
         try {
             const result = await knex('selectOptionSource')
-            .limit(Number(limit))
-            .offset((Number(page) - 1) * Number(limit))
-            .orderBy('id', String(order))
-            .select('*');
+                .limit(Number(limit))
+                .offset((Number(page) - 1) * Number(limit))
+                .orderBy('id', String(order))
+                .select('*');
             return res.json({ message: 'success', data: result })
         } catch (error) {
             console.log(error)
@@ -58,12 +71,12 @@ module.exports = {
         if (value === 'error') {
             return res.status(200).json({ message: 'error', res: 'Failed to authenticate' })
         }
-        const { name } = req.body;
-        if(!name){
-            return res.json({message:'error', res: 'Missing Name'})
+        const { name, channel } = req.body;
+        if (!name) {
+            return res.json({ message: 'error', res: 'Missing Name' })
         }
-        if(!channel){
-            return res.json({message:'error', res: 'Missing Name'})
+        if (!channel) {
+            return res.json({ message: 'error', res: 'Missing channel' })
         }
         const valueExist = await knex('selectOptionSource').where('name', name).select('*');
         if (valueExist.length !== 0) {
@@ -78,6 +91,6 @@ module.exports = {
             return res.json({ message: 'error', res: 'An error occurred while creating source', data: err })
         })
     },
-    
+
 }
 

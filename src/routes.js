@@ -28,7 +28,7 @@ routes.post('/leads/delete', LeadsController.delete);
 // routes.post('/options/group/delete', OptionsSelectController.deleteGroup)
 
 
-
+routes.get('/options/all', SourceController.indexAll)
 routes.get('/options/source', SourceController.indexSource)
 routes.post('/options/source/create', SourceController.createSource)
 routes.post('/options/source/delete', SourceController.deleteSource)
