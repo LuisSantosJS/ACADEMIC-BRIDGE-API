@@ -9,9 +9,10 @@ module.exports = {
         if (value === 'error') {
             return res.status(200).json({ message: 'error', res: 'Failed to authenticate' })
         }
+        const countRows = await knex('selectOptionSource').count('id', { as: 'rows' });
         try {
             const result = await knex('selectOptionSource').select('*');
-            res.json({ message: 'success', res: result })
+            res.json({ message: 'success', res: result, rows: countRows })
         } catch (error) {
             res.json({ message: 'error', err: error })
         }
@@ -98,6 +99,7 @@ module.exports = {
         if (value === 'error') {
             return res.status(200).json({ message: 'error', res: 'Failed to authenticate' })
         }
+
         const { page, order, limit, search } = req.query;
         if (!page) {
             return res.json({ message: 'error', res: 'Missing page (query)' })
@@ -114,6 +116,7 @@ module.exports = {
         if ((order !== 'desc') && (order !== 'asc')) {
             return res.json({ message: 'error', res: 'Invalid OrderBy' })
         }
+        const countRows = await knex('selectOptionSource').count('id', { as: 'rows' });
         try {
             const result = await
                 knex('selectOptionSource')
@@ -123,7 +126,7 @@ module.exports = {
                     .offset((Number(page) - 1) * Number(limit))
                     .orderBy('id', String(order))
                     .select('*');
-            return res.json({ message: 'success', res: result })
+            return res.json({ message: 'success', res: result, rows: countRows })
         } catch (error) {
             console.log(error)
             return res.json({ message: 'error', res: error })
