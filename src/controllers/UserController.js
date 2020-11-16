@@ -13,7 +13,7 @@ module.exports = {
         if (value === 'error') {
             return res.status(200).json({ message: 'error', res: 'Failed to authenticate' })
         }
-        const users = await knex('users').select('users.id', 'users.name', 'users.email', 'users.company', 'users.unity').orderBy('id', 'desc');
+        const users = await knex('users').select('users.id', 'users.name', 'users.email', 'users.company', 'users.unity', 'users.access').orderBy('id', 'desc');
         return res.status(200).json(users);
     },
     // async valid(req, res) {
@@ -30,7 +30,7 @@ module.exports = {
     // },
     async create(req, res) {
         const token = req.headers['x-access-token'];
-        const { email, password, name, unity, company } = req.body;
+        const { email, password, name, unity, company,access } = req.body;
         if (!email) {
             return res.status(200).json({ message: 'error', res: 'Missing the email' })
         }
@@ -49,6 +49,9 @@ module.exports = {
         if (!company) {
             return res.status(200).json({ message: 'error', res: 'Missing the company' })
         }
+        if (!access) {
+            return res.status(200).json({ message: 'error', res: 'Missing the access' })
+        }
         const value = ValidateToken(token, KeySecret).message;
         if (value === 'error') {
             return res.status(200).json({ message: 'error', res: 'Failed to authenticate' })
@@ -65,7 +68,8 @@ module.exports = {
             password: hash,
             name,
             unity,
-            company
+            company,
+            access
         }]).then(() => {
             return res.status(200).json({ message: 'success', res: '' })
         }).catch((err) => {
