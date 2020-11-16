@@ -85,7 +85,7 @@ module.exports = {
             company: 'Academic Bridge',
             access
         }]).then(() => {
-            return res.status(200).json({ message: 'success', res: '' })
+            return res.status(200).json({ message: 'success', res: 'User created with success' })
         }).catch((err) => {
             return res.status(200).json({ message: 'error', res: 'Failed to create user', err: err })
         })
