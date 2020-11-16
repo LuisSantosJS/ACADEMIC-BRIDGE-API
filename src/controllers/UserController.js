@@ -13,7 +13,24 @@ module.exports = {
         if (value === 'error') {
             return res.status(200).json({ message: 'error', res: 'Failed to authenticate' })
         }
-        const users = await knex('users').select('users.id', 'users.name', 'users.email', 'users.company', 'users.unity', 'users.access').orderBy('id', 'desc');
+        const { page, order, limit } = req.query;
+        if (!page) {
+            return res.json({ message: 'error', res: 'Missing page (query)' })
+        }
+        if (!order) {
+            return res.json({ message: 'error', res: 'Missing order (query)' })
+        }
+        if (!limit) {
+            return res.json({ message: 'error', res: 'Missing limit (query)' })
+        }
+        if ((order !== 'desc') && (order !== 'asc')) {
+            return res.json({ message: 'error', res: 'Invalid OrderBy' })
+        }
+        const users = await knex('users')
+            .limit(Number(limit))
+            .offset((Number(page) - 1) * Number(limit))
+            .orderBy('id', String(order))
+            .select('users.id', 'users.name', 'users.email', 'users.company', 'users.unity', 'users.access').orderBy('id', 'desc');
         return res.status(200).json(users);
     },
     // async valid(req, res) {
@@ -30,7 +47,7 @@ module.exports = {
     // },
     async create(req, res) {
         const token = req.headers['x-access-token'];
-        const { email, password, name, unity, company,access } = req.body;
+        const { email, password, name, unity, company, access } = req.body;
         if (!email) {
             return res.status(200).json({ message: 'error', res: 'Missing the email' })
         }
