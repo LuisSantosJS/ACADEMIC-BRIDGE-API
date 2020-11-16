@@ -31,7 +31,7 @@ module.exports = {
             .offset((Number(page) - 1) * Number(limit))
             .orderBy('id', String(order))
             .select('users.id', 'users.name', 'users.email', 'users.company', 'users.unity', 'users.access').orderBy('id', 'desc');
-        return res.status(200).json(users);
+        return res.status(200).json({ message: 'success', res: users });
     },
     // async valid(req, res) {
     //     const { code, hash, email } = req.body;
