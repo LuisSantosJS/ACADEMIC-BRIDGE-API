@@ -35,13 +35,14 @@ module.exports = {
         if ((order !== 'desc') && (order !== 'asc')) {
             return res.json({ message: 'error', res: 'Invalid OrderBy' })
         }
+        const countRows = await knex('selectOptionSource').count('id', { as: 'rows' });
         try {
             const result = await knex('selectOptionSource')
                 .limit(Number(limit))
                 .offset((Number(page) - 1) * Number(limit))
                 .orderBy('id', String(order))
                 .select('*');
-            return res.json({ message: 'success', data: result })
+            return res.json({ message: 'success', data: result, rows: countRows })
         } catch (error) {
             console.log(error)
             return res.json({ message: 'error', res: 'An error occurred while fetching source options', data: error })
@@ -91,6 +92,45 @@ module.exports = {
             return res.json({ message: 'error', res: 'An error occurred while creating source', data: err })
         })
     },
+    async indexSearch(req, res) {
+        const token = req.headers['x-access-token'];
+        const value = ValidateToken(token, KeySecret).message;
+        if (value === 'error') {
+            return res.status(200).json({ message: 'error', res: 'Failed to authenticate' })
+        }
+        const { page, order, limit, search } = req.query;
+        if (!page) {
+            return res.json({ message: 'error', res: 'Missing page (query)' })
+        }
+        if (!search) {
+            return res.json({ message: 'error', res: 'Missing search (query)' })
+        }
+        if (!order) {
+            return res.json({ message: 'error', res: 'Missing order (query)' })
+        }
+        if (!limit) {
+            return res.json({ message: 'error', res: 'Missing limit (query)' })
+        }
+        if ((order !== 'desc') && (order !== 'asc')) {
+            return res.json({ message: 'error', res: 'Invalid OrderBy' })
+        }
+        try {
+            const result = await
+                knex('selectOptionSource')
+                    .where("name", 'like', `%${search}%`)
+                    .orWhere("code", 'like', `%${search}%`)
+                    .limit(Number(limit))
+                    .offset((Number(page) - 1) * Number(limit))
+                    .orderBy('id', String(order))
+                    .select('*');
+            return res.json({ message: 'success', res: result })
+        } catch (error) {
+            console.log(error)
+            return res.json({ message: 'error', res: error })
+        }
+
+
+    }
 
 }
 
