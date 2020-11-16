@@ -77,9 +77,9 @@ module.exports = {
         if (!name) {
             return res.json({ message: 'error', res: 'Missing Name' })
         }
-        if (!channel) {
-            return res.json({ message: 'error', res: 'Missing channel' })
-        }
+        // if (!channel) {
+        //     return res.json({ message: 'error', res: 'Missing channel' })
+        // }
         const valueExist = await knex('selectOptionSource').where('name', name).select('*');
         if (valueExist.length !== 0) {
             return res.json({ message: 'error', res: 'Source already created or existing' })
