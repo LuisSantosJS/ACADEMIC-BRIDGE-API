@@ -29,7 +29,7 @@ routes.post('/leads/delete', LeadsController.delete);
 
 
 routes.get('/options/all', SourceController.indexAll)
-routes.get('/options/source/search', SourceController.indexAll)
+routes.get('/options/source/search', SourceController.indexSearch)
 routes.get('/options/source', SourceController.indexSource)
 routes.post('/options/source/create', SourceController.createSource)
 routes.post('/options/source/delete', SourceController.deleteSource)
