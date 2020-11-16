@@ -120,6 +120,48 @@ module.exports = {
                 name: userCheck[0].name, email: userCheck[0].email, type: userCheck[0].type, profile: userCheck[0].profile
             }
         })
+    },
+    async indexSearch(req, res) {
+        const token = req.headers['x-access-token'];
+        const value = ValidateToken(token, KeySecret).message;
+        if (value === 'error') {
+            return res.status(200).json({ message: 'error', res: 'Failed to authenticate' })
+        }
+        const { page, order, limit, search } = req.query;
+        if (!page) {
+            return res.json({ message: 'error', res: 'Missing page (query)' })
+        }
+        if (!search) {
+            return res.json({ message: 'error', res: 'Missing page (query)' })
+        }
+        if (!order) {
+            return res.json({ message: 'error', res: 'Missing order (query)' })
+        }
+        if (!limit) {
+            return res.json({ message: 'error', res: 'Missing limit (query)' })
+        }
+        if ((order !== 'desc') && (order !== 'asc')) {
+            return res.json({ message: 'error', res: 'Invalid OrderBy' })
+        }
+
+        try {
+            const result = await
+                knex('users')
+                    .where("company", 'like', `%${search}%`)
+                    .orWhere("unity", 'like', `%${search}%`)
+                    .orWhere("name", 'like', `%${search}%`)
+                    .orWhere("email", 'like', `%${search}%`)
+                    .orWhere("access", 'like', `%${search}%`)
+                    .limit(Number(limit))
+                    .offset((Number(page) - 1) * Number(limit))
+                    .orderBy('id', String(order))
+                    .select('users.id', 'users.name', 'users.email', 'users.company', 'users.unity', 'users.access');
+            return res.json({ message: 'success', res: result })
+
+        } catch (error) {
+            console.log(error)
+            return res.json({ message: 'error', res: error })
+        }
     }
 }
 

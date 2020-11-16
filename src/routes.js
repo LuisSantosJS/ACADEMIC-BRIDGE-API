@@ -10,7 +10,7 @@ const routes = express.Router();
 
 routes.get('/users/index', UserController.index);
 routes.post('/users/create', UserController.create);
-// routes.post('/users/validate', UserController.valid);
+routes.get('/users/index/search', UserController.indexSearch);
 routes.post('/users/login', UserController.login);
 
 routes.get('/', (req, res) => res.send('VAZA'));
