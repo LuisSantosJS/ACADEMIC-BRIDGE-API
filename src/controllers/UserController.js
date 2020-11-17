@@ -159,6 +159,26 @@ module.exports = {
             console.log(error)
             return res.json({ message: 'error', res: error })
         }
+    },
+    async delete(req, res){
+        const token = req.headers['x-access-token'];
+        const value = ValidateToken(token, KeySecret).message;
+        if (value === 'error') {
+            return res.status(200).json({ message: 'error', res: 'Failed to authenticate' })
+        }
+        const { id } = req.body;
+        if (!id) {
+            return res.json({ message: 'error', res: 'Missing id' })
+        }
+        const exsitsValue = await knex('users').where('id', id).select('*');
+        if (exsitsValue.length === 0) {
+            return res.json({ message: 'error', res: 'User does not exist or already deleted' })
+        }
+        knex('users').where('id', String(id)).delete().then(() => {
+            return res.json({ message: 'success', res: 'User successfully deleted' })
+        }).catch(err => {
+            return res.json({ message: 'error', res: 'Error deleting user', data: err })
+        })
     }
 }
 
