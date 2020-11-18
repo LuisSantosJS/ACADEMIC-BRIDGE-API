@@ -3,150 +3,202 @@ exports.seed = function (knex) {
     return knex('selectOptionSource').insert([
         {
             name: 'AB Brazil',
+            channel: 'Website'
         },
         {
-            name: 'Curioso e o Mundo'
+            name: 'Curioso e o Mundo',
+            channel: 'Instagram'
         },
         {
-            name: 'Facebook Messenger'
+            name: 'Facebook Messenger',
+            channel: 'Facebook'
         },
         {
-            name: 'Fale Inglês Page'
+            name: 'Fale Inglês Page',
+            channel: 'Facebook'
         },
         {
-            name: 'General Contact From'
+            name: 'General Contact From',
+            channel: 'Website'
         },
         {
-            name: 'Google Brazil'
+            name: 'Google Brazil',
+            channel: 'Website'
         },
         {
-            name: 'Hable Inglês'
+            name: 'Hable Inglês',
+            channel: 'Facebook'
         },
         {
-            name: 'Hable Inglês Argentina'
+            name: 'Hable Inglês Argentina',
+            channel: 'Facebook'
         },
         {
-            name: 'Hable Inglês Bolivia'
+            name: 'Hable Inglês Bolivia',
+            channel: 'Facebook'
         },
         {
-            name: 'Hable Inglês chile'
+            name: 'Hable Inglês chile',
+            channel: 'Facebook'
         },
         {
-            name: 'Hable Inglês Colombia'
+            name: 'Hable Inglês Colombia',
+            channel: 'Facebook'
         },
         {
-            name: 'Hable Inglês Guatemala'
+            name: 'Hable Inglês Guatemala',
+            channel: 'Facebook'
         },
         {
-            name: 'Hable Inglês Mexico'
+            name: 'Hable Inglês Mexico',
+            channel: 'Facebook'
         },
         {
-            name: 'Hable Inglês Oscar'
+            name: 'Hable Inglês Oscar',
+            channel: 'Website'
         },
         {
-            name: 'Hable Inglês Sebastian'
+            name: 'Hable Inglês Sebastian',
+            channel: 'Website'
         },
         {
-            name: 'Hable Inglês Venezuela'
+            name: 'Hable Inglês Venezuela',
+            channel: 'Facebook'
         },
         {
-            name: 'Importado'
+            name: 'Importado',
+            channel: 'Email'
         },
         {
-            name: 'Instagram'
+            name: 'Instagram',
+            channel: 'Instagram'
+
         },
         {
-            name: 'KGO INternational'
+            name: 'KGO INternational',
+            channel: 'Website'
         },
         {
-            name: 'Landing page Carolina'
+            name: 'Landing page Carolina',
+            channel: 'Website'
         },
         {
-            name: 'Landing page Jihee'
+            name: 'Landing page Jihee',
+            channel: 'Website'
         },
         {
-            name: 'Landing page Leiliane'
+            name: 'Landing page Leiliane',
+            channel: 'Website'
         },
         {
-            name: 'Landing page Matheus'
+            name: 'Landing page Matheus',
+            channel: 'Website'
         },
         {
-            name: 'Landing page Mauro'
+            name: 'Landing page Mauro',
+            channel: 'Website'
         },
         {
-            name: 'Landing page Nathalia M'
+            name: 'Landing page Nathalia M',
+            channel: 'Website'
         },
         {
-            name: 'Landing page Nathalia Soares'
+            name: 'Landing page Nathalia Soares',
+            channel: 'Website'
         },
         {
-            name: 'Landing page Pavan'
+            name: 'Landing page Pavan',
+            channel: 'Website'
+
         },
         {
-            name: 'Landing page Sebastian'
+            name: 'Landing page Sebastian',
+            channel: 'Website'
+
         },
         {
-            name: 'Landing page Teste Cassio'
+            name: 'Landing page Teste Cassio',
+            channel: 'Website'
+
+
         },
         {
-            name: 'Landing page William'
+            name: 'Landing page William',
+            channel: 'Website'
         },
         {
-            name: 'Leads Infinitos'
+            name: 'Leads Infinitos',
+            channel: 'Website'
+
         },
         {
-            name: 'Leo lins'
+            name: 'Leo lins',
+            channel: 'Facebook'
         },
         {
-            name: 'Marcel'
+            name: 'Marcel',
+            channel: 'Website'
+
         },
         {
-            name: 'Newsletter'
+            name: 'OK Intercambios',
+            channel: 'Website'
         },
         {
-            name: 'OK Intercambios'
+            name: 'Organic',
+            channel: 'Email'
         },
         {
-            name: 'Organic'
+            name: 'Organic Maicon',
+            channel: 'Facebook'
         },
         {
-            name: 'Organic Maicon'
+            name: 'Page',
+            channel: 'Website'
         },
         {
-            name: 'Page'
+            name: 'Page - Ana Carolina',
+            channel: 'Website'
         },
         {
-            name: 'Page - Ana Carolina'
+            name: 'Page - Anderson',
+            channel: 'Website'
         },
         {
-            name: 'Page - Anderson'
+            name: 'Page - Dulce Sales',
+            channel: 'Website'
         },
         {
-            name: 'Page - Dulce Sales'
+            name: 'Page - Gantsetseg',
+            channel: 'Website'
         },
         {
-            name: 'Page - Gantsetseg'
+            name: 'Page - Jihrr Kim',
+            channel: 'Website'
         },
         {
-            name: 'Page - Jihrr Kim'
+            name: 'Page - Julia',
+            channel: 'Website'
         },
         {
-            name: 'Page - Julia'
+            name: 'Page - Leiliane',
+            channel: 'Website'
         },
         {
-            name: 'Page - Leiliane'
+            name: 'Page - Marcia',
+            channel: 'Website'
         },
         {
-            name: 'Page - Marcia'
+            name: 'Page - Matheus',
+            channel: 'Website'
         },
         {
-            name: 'Page - Matheus'
+            name: 'Page - Mauro',
+            channel: 'Website'
         },
         {
-            name: 'Page - Mauro'
-        },
-        {
-            name: 'Page - Nam'
+            name: 'Page - Nam',
+            channel: 'Website'
         },
         {
             name: 'Page - Nathalia Mescolin'
@@ -155,34 +207,44 @@ exports.seed = function (knex) {
             name: 'Page - Nathalia Soares'
         },
         {
-            name: 'Page - Nilo'
+            name: 'Page - Nilo',
+            channel: 'Website'
         },
         {
-            name: 'Page - Oscar'
+            name: 'Page - Oscar',
+            channel: 'Website'
         },
         {
-            name: 'Page - Paula'
+            name: 'Page - Paula',
+            channel: 'Website'
         },
         {
-            name: 'Page - Ricardo Borges'
+            name: 'Page - Ricardo Borges',
+            channel: 'Website'
         },
         {
-            name: 'Page - Sebastian'
+            name: 'Page - Sebastian',
+            channel: 'Website'
         },
         {
-            name: 'Page - William'
+            name: 'Page - William',
+            channel: 'Website'
         },
         {
-            name: 'Sellers Page - Get a quote'
+            name: 'Sellers Page - Get a quote',
+            channel: 'Website'
         },
         {
-            name: 'Specific Form'
+            name: 'Specific Form',
+            channel: 'Website'
         },
         {
-            name: 'Whatsapp'
+            name: 'Whatsapp',
+            channel: 'Whatsapp'
         },
         {
-            name: 'Youtube'
+            name: 'Youtube',
+            channel: 'Website'
         },
 
     ])
