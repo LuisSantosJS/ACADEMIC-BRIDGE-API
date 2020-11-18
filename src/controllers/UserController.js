@@ -33,6 +33,16 @@ module.exports = {
             .select('users.id', 'users.name', 'users.email', 'users.company', 'users.unity', 'users.access').orderBy('id', 'desc');
         return res.status(200).json({ message: 'success', res: users });
     },
+    async indexAll(req, res) {
+        const token = req.headers['x-access-token'];
+        const value = ValidateToken(token, KeySecret).message;
+        if (value === 'error') {
+            return res.status(200).json({ message: 'error', res: 'Failed to authenticate' })
+        }
+        const users = await knex('users')
+            .select('users.id', 'users.name', 'users.email', 'users.company', 'users.unity', 'users.access').orderBy('id', 'desc');
+        return res.status(200).json({ message: 'success', res: users });
+    },
     // async valid(req, res) {
     //     const { code, hash, email } = req.body;
     //     const valueBcrypt = bcrypt.compareSync(String(code).toLowerCase(), hash);

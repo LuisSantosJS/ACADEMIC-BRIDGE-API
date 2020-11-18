@@ -9,6 +9,7 @@ const routes = express.Router();
 
 
 routes.get('/users/index', UserController.index);
+routes.get('/users/all', UserController.indexAll);
 routes.post('/users/create', UserController.create);
 routes.get('/users/index/search', UserController.indexSearch);
 routes.post('/users/login', UserController.login);
