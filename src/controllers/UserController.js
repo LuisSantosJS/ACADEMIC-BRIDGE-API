@@ -212,8 +212,8 @@ module.exports = {
         if (isExistUser.length === 0) {
             return res.json({ message: 'error', res: 'User does not exist or already deleted' })
         }
-        const existeUser = await knex('users').where('email', String(email).toLowerCase()).select('*');
-        if (existeUser.length > 1) {
+        const existeUser = await knex('users').where('email', String(email).toLowerCase()).limit(3).select('*');
+        if ((existeUser.length >= 1) && (Number(id) !== Number(existeUser[0].id))) {
             return res.status(200).json({ message: 'error', res: 'Existing email, another user already exists with this email' })
         }
         const salt = bcrypt.genSaltSync(10);
