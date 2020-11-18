@@ -13,6 +13,7 @@ routes.post('/users/create', UserController.create);
 routes.get('/users/index/search', UserController.indexSearch);
 routes.post('/users/login', UserController.login);
 routes.post('/users/delete', UserController.delete);
+routes.post('/users/update', UserController.update);
 
 routes.get('/', (req, res) => res.send('VAZA'));
 

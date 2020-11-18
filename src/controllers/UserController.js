@@ -160,7 +160,7 @@ module.exports = {
             return res.json({ message: 'error', res: error })
         }
     },
-    async delete(req, res){
+    async delete(req, res) {
         const token = req.headers['x-access-token'];
         const value = ValidateToken(token, KeySecret).message;
         if (value === 'error') {
@@ -179,6 +179,66 @@ module.exports = {
         }).catch(err => {
             return res.json({ message: 'error', res: 'Error deleting user', data: err })
         })
+    },
+    async update(req, res) {
+        const {
+            id,
+            email,
+            password,
+            name,
+            unity,
+            access,
+            isNewPassword
+        } = req.body;
+        if (!id) {
+            return res.json({ message: 'error', res: 'Missing id user' })
+        }
+        if (!email) {
+            return res.json({ message: 'error', res: 'Missing email' })
+        }
+        if (!name) {
+            return res.json({ message: 'error', res: 'Missing name' })
+        }
+        if (!unity) {
+            return res.json({ message: 'error', res: 'Missing unity' })
+        }
+        if (!access) {
+            return res.json({ message: 'error', res: 'Missing access' })
+        }
+        if (!isNewPassword) {
+            return res.json({ message: 'error', res: 'Missing new password' })
+        }
+        const isExistUser = await knex('users').where('id', id).select('*');
+        if (isExistUser.length === 0) {
+            return res.json({ message: 'error', res: 'User does not exist or already deleted' })
+        }
+        const salt = bcrypt.genSaltSync(10);
+        const hash = bcrypt.hashSync(password, salt);
+
+        if (isNewPassword === 'true') {
+            knex('users').where('id', id).update({
+                email,
+                password: hash,
+                name,
+                unity,
+                access
+            }).then(() => {
+                return res.json({ message: 'success', res: 'Successfully updated user' })
+            }).catch((err) => {
+                return res.json({ message: 'error', res: 'Error when updating user', err: err })
+            })
+        } else {
+            knex('users').where('id', id).update({
+                email,
+                name,
+                unity,
+                access
+            }).then(() => {
+                return res.json({ message: 'success', res: 'Successfully updated user' })
+            }).catch((err) => {
+                return res.json({ message: 'error', res: 'Error when updating user', err: err })
+            })
+        }
     }
 }
 
