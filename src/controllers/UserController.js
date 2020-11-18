@@ -47,7 +47,7 @@ module.exports = {
     // },
     async create(req, res) {
         const token = req.headers['x-access-token'];
-        const { email, password, name, unity, company, access } = req.body;
+        const { email, password, name, unity, access } = req.body;
         if (!email) {
             return res.status(200).json({ message: 'error', res: 'Missing the email' })
         }
@@ -211,6 +211,10 @@ module.exports = {
         const isExistUser = await knex('users').where('id', id).select('*');
         if (isExistUser.length === 0) {
             return res.json({ message: 'error', res: 'User does not exist or already deleted' })
+        }
+        const existeUser = await knex('users').where('email', email).select('*');
+        if (existeUser.length >= 2) {
+            return res.status(200).json({ message: 'error', res: 'Existing email, another user already exists with this email' })
         }
         const salt = bcrypt.genSaltSync(10);
         const hash = bcrypt.hashSync(password, salt);
