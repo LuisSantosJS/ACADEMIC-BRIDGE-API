@@ -70,7 +70,7 @@ module.exports = {
         if (value === 'error') {
             return res.status(200).json({ message: 'error', res: 'Failed to authenticate' })
         }
-        const existeUser = await knex('users').where('email', email).select('*');
+        const existeUser = await knex('users').where('email', String(email).toLowerCase()).select('*');
         if (existeUser.length !== 0) {
             return res.status(200).json({ message: 'error', res: 'Existing User' })
         }
@@ -78,7 +78,7 @@ module.exports = {
         const hash = bcrypt.hashSync(password, salt);
 
         knex('users').insert([{
-            email,
+            email: String(email).toLowerCase(),
             password: hash,
             name,
             unity,
@@ -212,8 +212,8 @@ module.exports = {
         if (isExistUser.length === 0) {
             return res.json({ message: 'error', res: 'User does not exist or already deleted' })
         }
-        const existeUser = await knex('users').where('email', email).select('*');
-        if (existeUser.length >= 2) {
+        const existeUser = await knex('users').where('email', String(email).toLowerCase()).select('*');
+        if (existeUser.length > 1) {
             return res.status(200).json({ message: 'error', res: 'Existing email, another user already exists with this email' })
         }
         const salt = bcrypt.genSaltSync(10);
@@ -221,7 +221,7 @@ module.exports = {
 
         if (isNewPassword === 'true') {
             knex('users').where('id', id).update({
-                email,
+                email: String(email).toLowerCase(),
                 password: hash,
                 name,
                 unity,
