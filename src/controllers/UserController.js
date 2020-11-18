@@ -114,7 +114,7 @@ module.exports = {
 
         return res.status(200).json({
             message: 'success', token: value.token, expire: value.expire, data: {
-                name: userCheck[0].name, email: userCheck[0].email, type: userCheck[0].type, profile: userCheck[0].profile
+                name: userCheck[0].name, email: userCheck[0].email, company: userCheck[0].company, unity: userCheck[0].unity, access: userCheck[0].access
             }
         })
     },

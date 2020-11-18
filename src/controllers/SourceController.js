@@ -77,16 +77,17 @@ module.exports = {
         if (!name) {
             return res.json({ message: 'error', res: 'Missing Name' })
         }
-        // if (!channel) {
-        //     return res.json({ message: 'error', res: 'Missing channel' })
-        // }
+        if (!channel) {
+            return res.json({ message: 'error', res: 'Missing channel' })
+        }
         const valueExist = await knex('selectOptionSource').where('name', name).select('*');
         if (valueExist.length !== 0) {
             return res.json({ message: 'error', res: 'Source already created or existing' })
         }
 
         knex('selectOptionSource').insert({
-            name: name
+            name: name,
+            channel
         }).then((ress) => {
             return res.json({ message: 'success', res: 'Source created with succeso', data: ress[0] })
         }).catch(err => {
@@ -122,6 +123,7 @@ module.exports = {
                 knex('selectOptionSource')
                     .where("name", 'like', `%${search}%`)
                     .orWhere("id", 'like', `%${search}%`)
+                    .orWhere("channel", 'like', `%${search}%`)
                     .limit(Number(limit))
                     .offset((Number(page) - 1) * Number(limit))
                     .orderBy('id', String(order))
